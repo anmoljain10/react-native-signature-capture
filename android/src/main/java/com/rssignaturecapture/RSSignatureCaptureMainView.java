@@ -139,7 +139,8 @@ public class RSSignatureCaptureMainView extends LinearLayout implements OnClickL
    */
   final void saveImage() {
 
-    String root = Environment.getExternalStorageDirectory().toString();
+     ReactContext reactContext = (ReactContext) getContext();
+    String root = reactContext.getFilesDir().toString();
 
     // the directory where the signature will be saved
     File myDir = new File(root + "/saved_signature");
@@ -162,12 +163,10 @@ public class RSSignatureCaptureMainView extends LinearLayout implements OnClickL
 
       Log.d("React Signature", "Save file-======:" + saveFileInExtStorage);
       // save the signature
-      if (saveFileInExtStorage) {
         FileOutputStream out = new FileOutputStream(file);
         this.signatureView.getSignature().compress(Bitmap.CompressFormat.PNG, 90, out);
         out.flush();
         out.close();
-      }
 
 
       ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
